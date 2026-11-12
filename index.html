@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Beágyazás teszt - szalon weboldala</title>
+    <style>
+      body { margin: 0; font-family: Georgia, serif; background: #f4efe9; color: #2b2622; }
+      header, footer { padding: 20px 24px; background: #2b2622; color: #fff; }
+      main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
+      p { line-height: 1.5; }
+    </style>
+  </head>
+  <body>
+    <header>Próba Szalon - saját weboldal (teszt)</header>
+    <main>
+      <h1>Foglalj időpontot</h1>
+      <p>Ez egy tesztoldal: a foglaló alább, a Rendly-ből beágyazva jelenik meg.</p>
+
+      <!--
+        IDE MÁSOLD BE a kódot a staging adminból: Weboldalam -> Beágyazás -> "Kód másolása".
+        A weboldal címét (pl. https://<neved>.github.io) előbb fel kell venni ugyanott,
+        különben a böngésző nem mutatja meg a foglalót.
+      -->
+      <p><em>A foglaló kódja hamarosan ide kerül.</em></p>
+
+      <p>A foglaló alatti szöveg: ha a keret jól igazodik, nincs benne görgetősáv, és nincs alatta üres sáv.</p>
+    </main>
+    <footer>Lábléc</footer>
+    <script>
+      // Shows that the website hears a finished booking (embed.js passes it on, without any data).
+      window.addEventListener('rendly:booking-completed', function () {
+        var note = document.createElement('p');
+        note.textContent = 'A weboldal megkapta: elkészült egy foglalás.';
+        note.style.cssText = 'padding:12px;background:#dfeee2;border-radius:8px';
+        document.querySelector('main').appendChild(note);
+      });
+    </script>
+  </body>
+</html>
