@@ -3,37 +3,282 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Beágyazás teszt - szalon weboldala</title>
+    <title>Lumen Brows Studio - sminktetoválás Budapesten</title>
+    <meta name="description" content="Tesztoldal: kitalált sminktetováló stúdió, a Rendly beágyazott foglalójának kipróbálásához." />
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
-      body { margin: 0; font-family: Georgia, serif; background: #f4efe9; color: #2b2622; }
-      header, footer { padding: 20px 24px; background: #2b2622; color: #fff; }
-      main { max-width: 960px; margin: 0 auto; padding: 24px 16px; }
-      p { line-height: 1.5; }
+      :root {
+        --ink: #2a211d;
+        --muted: #7a6a62;
+        --cream: #faf6f1;
+        --sand: #f1e8de;
+        --rose: #b9816f;
+        --rose-dark: #94604f;
+        --line: #e6d9cc;
+        --radius: 18px;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: 'Inter', system-ui, sans-serif;
+        color: var(--ink);
+        background: var(--cream);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; line-height: 1.1; margin: 0; }
+      a { color: inherit; }
+      .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+      /* Test banner */
+      .test-note {
+        background: var(--ink); color: #f3e9df; font-size: 12px; text-align: center; padding: 6px 12px; letter-spacing: .02em;
+      }
+
+      /* Header */
+      header.site {
+        position: sticky; top: 0; z-index: 10;
+        background: rgba(250, 246, 241, .92); backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+      .logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; letter-spacing: .04em; text-decoration: none; white-space: nowrap; }
+      .logo span { color: var(--rose); }
+      .menu { display: flex; gap: 28px; font-size: 14px; }
+      .menu a { text-decoration: none; color: var(--muted); }
+      .menu a:hover { color: var(--ink); }
+      .btn {
+        display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 24px;
+        border-radius: 999px; background: var(--rose); color: #fff; text-decoration: none; font-weight: 500; font-size: 15px;
+        transition: background .2s;
+      }
+      .btn:hover { background: var(--rose-dark); }
+      .btn.ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+      .btn.ghost:hover { background: var(--ink); color: #fff; }
+      .nav .btn { min-height: 40px; padding: 0 18px; font-size: 14px; }
+
+      /* Hero */
+      .hero { padding: 72px 0 88px; }
+      .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 56px; align-items: center; }
+      .eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: 12px; color: var(--rose); font-weight: 600; margin-bottom: 18px; }
+      .hero h1 { font-size: clamp(42px, 6vw, 68px); }
+      .hero p.lead { font-size: 18px; color: var(--muted); max-width: 520px; margin: 22px 0 32px; }
+      .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+      .hero-art {
+        aspect-ratio: 4 / 5; border-radius: 220px 220px var(--radius) var(--radius);
+        background:
+          radial-gradient(circle at 30% 25%, rgba(255,255,255,.55), transparent 40%),
+          radial-gradient(circle at 75% 80%, rgba(148,96,79,.35), transparent 45%),
+          linear-gradient(160deg, #e9d3c4 0%, #d3a993 55%, #b9816f 100%);
+        position: relative; overflow: hidden;
+      }
+      .hero-art::after {
+        content: ''; position: absolute; left: 18%; right: 18%; top: 44%; height: 2px;
+        background: rgba(42,33,29,.35); border-radius: 2px; transform: rotate(-6deg); box-shadow: 0 18px 0 rgba(42,33,29,.18);
+      }
+      .badge {
+        position: absolute; left: -18px; bottom: 32px; background: #fff; border-radius: 14px; padding: 14px 18px;
+        box-shadow: 0 12px 30px rgba(42,33,29,.12); font-size: 13px;
+      }
+      .badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; }
+      .hero-art-wrap { position: relative; }
+
+      /* Sections */
+      section { padding: 88px 0; }
+      .section-head { max-width: 620px; margin-bottom: 44px; }
+      .section-head h2 { font-size: clamp(34px, 4.4vw, 48px); }
+      .section-head p { color: var(--muted); margin: 14px 0 0; }
+      .alt { background: var(--sand); }
+
+      .about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; }
+      .card h3 { font-size: 26px; margin-bottom: 8px; }
+      .card p { margin: 0; color: var(--muted); font-size: 15px; }
+      .num { font-family: 'Cormorant Garamond', serif; font-size: 40px; color: var(--rose); line-height: 1; margin-bottom: 12px; }
+
+      .prices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 48px; }
+      .price { display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--line); }
+      .price h3 { font-size: 24px; }
+      .price small { display: block; color: var(--muted); font-size: 14px; font-family: 'Inter', sans-serif; margin-top: 4px; }
+      .price .amount { font-weight: 500; white-space: nowrap; }
+
+      /* Booking */
+      .booking-shell {
+        background: #fff; border: 1px solid var(--line); border-radius: 28px; padding: 12px;
+        box-shadow: 0 30px 60px -30px rgba(42,33,29,.25);
+      }
+      .booking-shell iframe { display: block; width: 100%; border: 0; border-radius: 20px; }
+      .booking-placeholder { padding: 64px 24px; text-align: center; color: var(--muted); }
+      .booking-note { font-size: 13px; color: var(--muted); text-align: center; margin-top: 16px; }
+
+      /* Contact */
+      .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+      .contact-grid .card strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: .12em; color: var(--rose); margin-bottom: 8px; }
+
+      footer.site { background: var(--ink); color: #d9cbbf; padding: 40px 0; font-size: 14px; }
+      .foot { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+      .foot .logo { color: #fff; font-size: 22px; }
+
+      .toast {
+        position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--ink); color: #fff;
+        padding: 14px 20px; border-radius: 14px; font-size: 14px; box-shadow: 0 12px 30px rgba(0,0,0,.2); z-index: 20;
+        max-width: calc(100% - 32px);
+      }
+
+      @media (max-width: 860px) {
+        .menu { display: none; }
+        .hero { padding: 40px 0 64px; }
+        .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+        .hero-art { max-width: 380px; margin: 0 auto; }
+        .badge { left: 8px; }
+        section { padding: 64px 0; }
+        .about-grid, .contact-grid { grid-template-columns: 1fr; }
+        .prices { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 420px) {
+        .wrap { padding: 0 16px; }
+        .nav .btn { display: none; }
+        .booking-shell { padding: 6px; border-radius: 22px; }
+      }
     </style>
   </head>
   <body>
-    <header>Próba Szalon - saját weboldal (teszt)</header>
+    <div class="test-note">Tesztoldal: kitalált stúdió a Rendly beágyazott foglalójának kipróbálásához.</div>
+
+    <header class="site">
+      <div class="wrap nav">
+        <a class="logo" href="#">Lumen <span>Brows</span></a>
+        <nav class="menu" aria-label="Menü">
+          <a href="#rolam">Rólam</a>
+          <a href="#arak">Árak</a>
+          <a href="#foglalas">Időpontfoglalás</a>
+          <a href="#kapcsolat">Kapcsolat</a>
+        </nav>
+        <a class="btn" href="#foglalas">Időpontot kérek</a>
+      </div>
+    </header>
+
     <main>
-      <h1>Foglalj időpontot</h1>
-      <p>Ez egy tesztoldal: a foglaló alább, a Rendly-ből beágyazva jelenik meg.</p>
+      <section class="hero">
+        <div class="wrap hero-grid">
+          <div>
+            <div class="eyebrow">Sminktetoválás · Budapest</div>
+            <h1>Természetes szemöldök, ami reggel is a helyén van</h1>
+            <p class="lead">
+              Púderes és microblading szemöldök, ajak- és szemhéjtetoválás nyugodt, privát stúdióban. Minden
+              kezelés előtt rövid online előszűrés, hogy biztosan neked való legyen.
+            </p>
+            <div class="hero-actions">
+              <a class="btn" href="#foglalas">Időpontfoglalás</a>
+              <a class="btn ghost" href="#arak">Árak</a>
+            </div>
+          </div>
+          <div class="hero-art-wrap">
+            <div class="hero-art" aria-hidden="true"></div>
+            <div class="badge"><strong>8 év</strong>tapasztalat, 2 400+ elégedett vendég</div>
+          </div>
+        </div>
+      </section>
 
-      <!--
-        IDE MÁSOLD BE a kódot a staging adminból: Weboldalam -> Beágyazás -> "Kód másolása".
-        A weboldal címét (pl. https://<neved>.github.io) előbb fel kell venni ugyanott,
-        különben a böngésző nem mutatja meg a foglalót.
-      -->
-      <p><em>A foglaló kódja hamarosan ide kerül.</em></p>
+      <section id="rolam" class="alt">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">Rólam</div>
+            <h2>Kevesebb, de pontosabb</h2>
+            <p>Minden arc más: a formát a csontozatodhoz és a mimikádhoz tervezzük, és csak akkor kezdünk, ha tetszik.</p>
+          </div>
+          <div class="about-grid">
+            <div class="card">
+              <div class="num">01</div>
+              <h3>Előszűrés</h3>
+              <p>Pár perces online kérdőív a foglalás előtt: így kiderül, ha valami miatt várni kell.</p>
+            </div>
+            <div class="card">
+              <div class="num">02</div>
+              <h3>Formatervezés</h3>
+              <p>A kezelés elején együtt rajzoljuk meg a formát, tükör előtt, a te ízlésed szerint.</p>
+            </div>
+            <div class="card">
+              <div class="num">03</div>
+              <h3>Utókezelés</h3>
+              <p>Részletes útmutatót kapsz e-mailben, és a korrekció 6-8 hét múlva az árban van.</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <p>A foglaló alatti szöveg: ha a keret jól igazodik, nincs benne görgetősáv, és nincs alatta üres sáv.</p>
+      <section id="arak">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">Árak</div>
+            <h2>Kezelések</h2>
+            <p>Az árak a korrekciót is tartalmazzák. A foglaláskor előleget kérhetünk.</p>
+          </div>
+          <div class="prices">
+            <div class="price"><h3>Púderes szemöldök<small>kb. 2,5 óra</small></h3><span class="amount">65 000 Ft</span></div>
+            <div class="price"><h3>Microblading<small>kb. 2 óra</small></h3><span class="amount">60 000 Ft</span></div>
+            <div class="price"><h3>Ajaktetoválás<small>kb. 3 óra</small></h3><span class="amount">75 000 Ft</span></div>
+            <div class="price"><h3>Szemhéjtetoválás<small>kb. 2 óra</small></h3><span class="amount">55 000 Ft</span></div>
+            <div class="price"><h3>Konzultáció<small>30 perc</small></h3><span class="amount">ingyenes</span></div>
+            <div class="price"><h3>Frissítés (1 éven belül)<small>kb. 1,5 óra</small></h3><span class="amount">30 000 Ft</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="foglalas" class="alt">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">Időpontfoglalás</div>
+            <h2>Foglalj időpontot online</h2>
+            <p>Válassz kezelést és időpontot. Az előszűrő kérdéseket is itt töltheted ki, a visszaigazolást e-mailben kapod.</p>
+          </div>
+          <div class="booking-shell">
+            <!-- EMBED_CODE -->
+            <div class="booking-placeholder">A foglaló kódja hamarosan ide kerül.</div>
+            <!-- /EMBED_CODE -->
+          </div>
+          <p class="booking-note">A foglalást a Rendly kezeli.</p>
+        </div>
+      </section>
+
+      <section id="kapcsolat">
+        <div class="wrap">
+          <div class="section-head">
+            <div class="eyebrow">Kapcsolat</div>
+            <h2>Itt találsz</h2>
+          </div>
+          <div class="contact-grid">
+            <div class="card"><strong>Cím</strong>1061 Budapest, Példa utca 12., 2. emelet</div>
+            <div class="card"><strong>Nyitvatartás</strong>Hétfő-péntek 9-18, szombat 9-13</div>
+            <div class="card"><strong>Elérhetőség</strong>hello@lumen-brows.example<br />Instagram: @lumen.brows.example</div>
+          </div>
+        </div>
+      </section>
     </main>
-    <footer>Lábléc</footer>
+
+    <footer class="site">
+      <div class="wrap foot">
+        <span class="logo">Lumen Brows</span>
+        <span>Kitalált stúdió, csak tesztoldal. © 2026</span>
+      </div>
+    </footer>
+
     <script>
-      // Shows that the website hears a finished booking (embed.js passes it on, without any data).
+      // The booking tells the page when a booking was made (embed.js passes it on, without any data).
       window.addEventListener('rendly:booking-completed', function () {
-        var note = document.createElement('p');
-        note.textContent = 'A weboldal megkapta: elkészült egy foglalás.';
-        note.style.cssText = 'padding:12px;background:#dfeee2;border-radius:8px';
-        document.querySelector('main').appendChild(note);
+        var toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.setAttribute('role', 'status');
+        toast.textContent = 'A weboldal jelzést kapott: elkészült egy foglalás.';
+        document.body.appendChild(toast);
+        setTimeout(function () { toast.remove(); }, 6000);
       });
     </script>
   </body>
